@@ -1,0 +1,10 @@
+{% extends 'data/base.html' %}
+{% load static %}
+
+{% block content %}
+    {% for text in all_texts %}
+        <br>
+        <a href="{% url 'text_page' text.id %}">{{text.text_area|truncatewords:90|safe}}</a>
+        <br>
+    {% endfor %}
+{% endblock %}

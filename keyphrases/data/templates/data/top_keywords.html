@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% extends 'data/base.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+<br>
+{% for field, value in all_keywords %}
+    {{field}}  {{ value}}
+    {% for k, v in wiki_urls.items %}
+        {% if field == k and v != '' %}
+        <a href="{{v}}">{{v}}</a>
+        {% endif %}
+    {% endfor %}
+    <br>
+    {% for kd, vd in disambiguation.items %}
+        {% if kd == field and vd != '' %}
+        <a href="{{vd}}">{{vd}}</a>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+
+<br><br>
+<form method="post">
+    {% csrf_token %}
+    <input type="submit" name="wikipedia_pages" value="Wikipedia">
+</form>
+{% endblock %}
+</body>
+</html>
