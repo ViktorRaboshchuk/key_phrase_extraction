@@ -4,4 +4,4 @@ Here you can find Django project. Ypu can save text, extract keyphrases from it,
 
 In order to run this project, please, download all files and in keyphrases folder run:
 
-***python manage.py runserver ***
+***python manage.py runserver***
