@@ -2,9 +2,26 @@
 {% load static %}
 
 {% block content %}
-    {% for text in all_texts %}
-        <br>
-        <a href="{% url 'text_page' text.id %}">{{text.text_area|truncatewords:90|safe}}</a>
-        <br>
-    {% endfor %}
+
+<div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+        <div class="post-preview">
+            {% for text in all_texts %}
+                <a href="{% url 'text_page' text.id %}">
+                    <h2 class="post-title">
+                        Text number {{text.id}}
+                    </h2>
+                    <h3 class="post-subtitle">
+                        {{text.text_area|truncatewords:20|safe}}
+                    </h3>
+                </a>
+            <hr>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- /.container -->
 {% endblock %}

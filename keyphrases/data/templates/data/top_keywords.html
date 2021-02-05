@@ -8,27 +8,39 @@
 </head>
 <body>
 {% block content %}
-<br>
-{% for field, value in all_keywords %}
-    {{field}}  {{ value}}
-    {% for k, v in wiki_urls.items %}
-        {% if field == k and v != '' %}
-        <a href="{{v}}">{{v}}</a>
-        {% endif %}
-    {% endfor %}
-    <br>
-    {% for kd, vd in disambiguation.items %}
-        {% if kd == field and vd != '' %}
-        <a href="{{vd}}">{{vd}}</a>
-        {% endif %}
-    {% endfor %}
-{% endfor %}
-
-<br><br>
-<form method="post">
-    {% csrf_token %}
-    <input type="submit" name="wikipedia_pages" value="Wikipedia">
-</form>
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            <div class="clearfix" id="container" align="center">
+                <button type="submit" name="wikipedia_pages" value="Wikipedia" class="btn btn-primary"><h5>Wikipedia</h5></button>
+            </div><br>
+        </form>
+        <div class="row">
+            <table class="styled-table" style="width:100%">
+                    <tr>
+                        <td><strong><h4>Key phrase</h4></strong></td>
+                        <td align="center"><strong><h4>Count</h4></strong></td>
+                    </tr>
+                {% for field, value in all_keywords %}
+                    <tr>
+                        <td>{{field}}
+                        {% for k, v in wiki_urls.items %}
+                            {% if field == k and v != '' %}
+                                <a href="{{v}}">{{v}}</a>
+                            {% endif %}
+                        {% endfor %}
+                        {% for kd, vd in disambiguation.items %}
+                            {% if kd == field and vd != '' %}
+                                <a href="{{vd}}">{{vd}}</a>
+                            {% endif %}
+                        {% endfor %}
+                        </td>
+                        <td align="center">{{value}}</td>
+                    </tr>
+                {% endfor %}
+            </table><br>
+        </div><br>
+    </div>
 {% endblock %}
 </body>
 </html>

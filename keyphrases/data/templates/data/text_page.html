@@ -7,37 +7,49 @@
     <title>Title</title>
 </head>
 <body>
-    {% block content %}
-    {{text.text_area}}
-    <br><br>
-    <form method="post">
-        {% csrf_token %}
-        <input type="submit" name="Keyphrases extract" value="Keyphrases extract"><br><br>
-        {% for phrase in key_phrases %}
-            {{phrase}}
-            {% for k, v in wiki_urls.items %}
-                {% if k == phrase and v != '' %}
-                <a href="{{v}}">{{v}}</a>
-                {% endif %}
-            {% endfor %}
-        <br>
-            {% for kd, vd in disambiguation.items %}
-                {% if kd == phrase and vd != '' %}
-                <a href="{{vd}}">{{vd}}</a>
-                {% endif %}
-            {% endfor %}
-            <br><br>
-        {% endfor %}
-        <br>
-
-        <input type="submit" name="wikipedia_pages" value="Wikipedia">
-
-<!--        {% for k, v in wiki_urls.items %}-->
-<!--            {{k}} {{v}}-->
-<!--            <br>-->
-<!--        {% endfor %}-->
-    </form>
+{% block content %}
+    <article>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-14 col-md-14">
+                {{text.text_area|linebreaks}}
+                <form method="post" align="center">
+                    {% csrf_token %}
+                    <div class="clearfix" id="container">
+                        {% if key_phrases|length == 0 %}
+                            <div><button type="submit" name="keyphrases_extract" value="Keyphrases extract" class="btn btn-primary">Keyphrases extract</button></div>
+                        {% endif %}
+                        <div><button type="submit" name="wikipedia_pages" value="Wikipedia" class="btn btn-primary">Wikipedia</button></div>
+                    </div>
+                    <br>
+                </form>
+                <div align="center">
+                    <table class="styled-table" style="width:80%" >
+                        <tr >
+                            {% for phrase in key_phrases %}
+                                <td>{{phrase}}</td>
+                                <td align="right">
+                                    {% for k, v in wiki_urls.items %}
+                                        {% if k == phrase and v != '' %}
+                                            <a href="{{v}}">{{v}}</a>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% for kd, vd in disambiguation.items %}
+                                        {% if kd == phrase and vd != '' %}
+                                            {{vd}}
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                </div>
+            </div>
+          </div>
+        </div>
+    </article>
         <br><br>
 {% endblock%}
+
 </body>
 </html>
