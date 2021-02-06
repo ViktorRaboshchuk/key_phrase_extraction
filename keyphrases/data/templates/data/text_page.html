@@ -18,8 +18,9 @@
                     <div class="clearfix" id="container">
                         {% if key_phrases|length == 0 %}
                             <div><button type="submit" name="keyphrases_extract" value="Keyphrases extract" class="btn btn-primary">Keyphrases extract</button></div>
+                        {% else %}
+                            <div><button type="submit" name="wikipedia_pages" value="Wikipedia" class="btn btn-primary">Wikipedia</button></div>
                         {% endif %}
-                        <div><button type="submit" name="wikipedia_pages" value="Wikipedia" class="btn btn-primary">Wikipedia</button></div>
                     </div>
                     <br>
                 </form>

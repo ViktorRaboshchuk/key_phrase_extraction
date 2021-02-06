@@ -3,6 +3,7 @@ from data.forms import TextForm
 from data.models import Text, KeyPhrases
 from collections import Counter
 import pke
+import ast
 from data.utils import get_keywords, wikipedia_check
 
 
@@ -28,7 +29,8 @@ def top_keywords(request):
     all_phrases = []
     all_keywords_list = KeyPhrases.objects.all()
     for key_list in all_keywords_list:
-        for phrase in key_list.phrases:
+        key_list = ast.literal_eval(key_list.phrases)
+        for phrase in key_list:
             all_phrases.append(phrase)
     counted_phrases = Counter(all_phrases).most_common(20)
     context = {'all_keywords': counted_phrases}
@@ -44,7 +46,6 @@ def top_keywords(request):
 def text_page(request, pk):
     text = Text.objects.get(id=pk)
     kp_obj = KeyPhrases.objects.filter(key=text)
-
     if request.method == 'POST' and kp_obj.exists():
         context = get_keywords(text)
         if 'wikipedia_pages' in request.POST:

@@ -15,7 +15,8 @@ class Text(models.Model):
 
 class KeyPhrases(models.Model):
     key = models.ForeignKey(Text, on_delete= models.CASCADE)
-    phrases = ArrayField(models.CharField(max_length=25500, blank=True, default=''), default=list,)
+    # phrases = ArrayField(models.CharField(max_length=25500, blank=True, default=''), default=list,)
+    phrases = models.CharField(max_length=1500, default='')
 
     def __str__(self):
         return 'key phrases # {}'.format(self.id)

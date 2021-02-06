@@ -31,7 +31,7 @@
                         {% endfor %}
                         {% for kd, vd in disambiguation.items %}
                             {% if kd == field and vd != '' %}
-                                <a href="{{vd}}">{{vd}}</a>
+                                {{vd}}
                             {% endif %}
                         {% endfor %}
                         </td>
