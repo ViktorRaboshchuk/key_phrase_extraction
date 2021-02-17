@@ -19,11 +19,13 @@
             <table class="styled-table" style="width:100%">
                     <tr>
                         <td><strong><h4>Key phrase</h4></strong></td>
+                        <td align="left"><strong><h4>Wikipedia Data</h4></strong></td>
                         <td align="center"><strong><h4>Count</h4></strong></td>
                     </tr>
                 {% for field, value in all_keywords %}
                     <tr>
-                        <td>{{field}}
+                        <td>{{ field }}</td>
+                        <td>
                         {% for k, v in wiki_urls.items %}
                             {% if field == k and v != '' %}
                                 <a href="{{v}}">{{v}}</a>

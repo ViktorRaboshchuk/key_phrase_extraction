@@ -20,28 +20,22 @@ def get_keywords(text):
 def wikipedia_check(kp_obj):
     disambiguation = {}
     wiki_urls = {}
+    array_obj = []
     if isinstance(kp_obj, QuerySet):
-        kp_obj = ast.literal_eval(kp_obj[0].phrases)
-        for phrase in kp_obj:
-            try:
-                wiki_summary = wikipedia.summary(phrase, sentences=1, chars=10, auto_suggest=False)
-                wiki_page = wikipedia.page(phrase, auto_suggest=True)
-                wiki_urls[phrase] = wiki_page.url
-            except wikipedia.exceptions.DisambiguationError:
-                disambiguation[phrase] = 'This keyword refers to multiple pages!:)'
-            except wikipedia.exceptions.PageError:
-                wiki_urls[phrase] = ''
-                continue
+        array_obj = ast.literal_eval(kp_obj[0].phrases)
     elif isinstance(kp_obj, list):
-        for phrase, cnt in kp_obj:
-            try:
-                wiki_summary = wikipedia.summary(phrase, sentences=1, chars=10, auto_suggest=False)
-                wiki_page = wikipedia.page(phrase, auto_suggest=True)
-                wiki_urls[phrase] = wiki_page.url
-            except wikipedia.exceptions.DisambiguationError:
-                disambiguation[phrase] = 'This keyword refers to multiple pages!'
-            except wikipedia.exceptions.PageError:
-                wiki_urls[phrase] = ''
-                continue
-            print(wiki_urls)
+        [array_obj.append(i[0]) for i in kp_obj]
+    print(array_obj)
+
+    for phrase in array_obj:
+        try:
+            wiki_summary = wikipedia.summary(phrase, sentences=1, chars=10, auto_suggest=False)
+            wiki_page = wikipedia.page(phrase, auto_suggest=True)
+            wiki_urls[phrase] = wiki_page.url
+        except wikipedia.exceptions.DisambiguationError:
+            disambiguation[phrase] = 'This keyword refers to multiple pages!'
+        except wikipedia.exceptions.PageError:
+            wiki_urls[phrase] = ''
+            continue
+        print(wiki_urls)
     return wiki_urls, disambiguation

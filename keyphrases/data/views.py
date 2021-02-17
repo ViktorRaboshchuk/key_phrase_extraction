@@ -32,7 +32,7 @@ def top_keywords(request):
         key_list = ast.literal_eval(key_list.phrases)
         for phrase in key_list:
             all_phrases.append(phrase)
-    counted_phrases = Counter(all_phrases).most_common(20)
+    counted_phrases = Counter(all_phrases).most_common(10)
     context = {'all_keywords': counted_phrases}
 
     if 'wikipedia_pages' in request.POST:
