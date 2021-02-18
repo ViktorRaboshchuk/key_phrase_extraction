@@ -8,6 +8,9 @@ from data.utils import get_keywords, wikipedia_check
 
 
 def text_save(request):
+    """
+    Save text from textarea
+    """
     if 'save' in request.POST:
         form = TextForm(request.POST)
         if form.is_valid():
@@ -19,6 +22,9 @@ def text_save(request):
 
 
 def all_texts(request):
+    """
+    List all texts
+    """
     texts = Text.objects.all()
     ordered_texts = texts.order_by('-time')
     context = {'all_texts': ordered_texts}
@@ -26,6 +32,9 @@ def all_texts(request):
 
 
 def top_keywords(request):
+    """
+    Show top keyphrases from text
+    """
     all_phrases = []
     all_keywords_list = KeyPhrases.objects.all()
     for key_list in all_keywords_list:
@@ -45,6 +54,9 @@ def top_keywords(request):
 
 def text_page(request, pk):
     text = Text.objects.get(id=pk)
+    """
+    Show Wikipedia data on page with unique text
+    """
     kp_obj = KeyPhrases.objects.filter(key=text)
     if request.method == 'POST' and kp_obj.exists():
         context = get_keywords(text)

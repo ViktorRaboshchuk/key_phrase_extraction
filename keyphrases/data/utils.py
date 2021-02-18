@@ -6,6 +6,9 @@ from data.models import KeyPhrases
 
 
 def get_keywords(text):
+    """
+    Get saved keyphrases for unique text
+    """
     try:
         db_key_phrases = KeyPhrases.objects.get(key=text)
         db_key_phrases = ast.literal_eval(db_key_phrases.phrases)
@@ -18,6 +21,9 @@ def get_keywords(text):
 
 
 def wikipedia_check(kp_obj):
+    """
+    Search keyphrase on Wikipedia
+    """
     disambiguation = {}
     wiki_urls = {}
     array_obj = []
